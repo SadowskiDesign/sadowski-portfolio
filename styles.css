@@ -1,0 +1,166 @@
+/* ============================================================
+   Shared shell
+   ------------------------------------------------------------
+   The layer that index.html and case-study/index.html have in
+   common: design tokens, base/reset, the page container, the
+   site header (brand mark + nav), the dot-field, and the scroll
+   reveal machinery.
+
+   Everything a single page needs on its own stays in that page's
+   <style> block. This file is the only place the header is
+   defined, so the two pages cannot drift apart again.
+   ============================================================ */
+
+/* ---------- design tokens ---------- */
+:root{
+  --maxw: 1140px;
+  --bg: #FAF8F4;
+  --surface: #FFFFFF;
+  --surface-warm: #F2EDE4;
+  --ink: #17130F;
+  --muted: #6E6459;
+  --rule: #E2DBD0;
+  --rule-strong: #CFC5B4;
+
+  /* motif palette, taken from the reference shape */
+  --accent: #1E1BA8;        /* deep indigo */
+  --accent-2: #3B9BEE;      /* sky blue   */
+  --accent-on-dark: #6BB8F3;/* sky blue for navy bg - 7.45:1 (WCAG AAA) */
+  --navy: #12106B;          /* selected-work sheet */
+  --hl: #2B2BD6;
+  --accent-wash: rgba(59,155,238,.10);
+
+  /* semantic - kept restrained within the palette */
+  --green: #2F7D52;
+  --rose: #A1493A;
+  --red: #C62828;
+
+  /* shared soft-blue wash - the at-a-glance band and a highlighted decision */
+  --wash-grad: linear-gradient(180deg, rgba(59,155,238,.13) 0%, rgba(59,155,238,.06) 55%, rgba(30,27,168,.035) 100%);
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+
+  /* default display face. The case study overrides --font-display with
+     Playfair Display in its own <style>, which is loaded after this file. */
+  --font-display: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --font-sans: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ---------- base ---------- */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-sans);
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+::selection{background:rgba(30,27,168,.14);color:var(--ink)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(24px,4vw,40px)}
+
+::-webkit-scrollbar{width:12px}
+::-webkit-scrollbar-track{background:var(--surface-warm)}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:8px;border:3px solid var(--surface-warm)}
+
+/* ---------- motif ---------- */
+.mark svg{display:block}
+.mark .mc{transform-box:fill-box;transform-origin:center}
+
+/* ---------- header ----------
+   Position/z-index is the one thing each page sets for itself:
+   the portfolio uses a sticky header (its hero is a sticky curtain),
+   the case study a fixed one. Everything visual is defined here. */
+.site-header{
+  background:rgba(250,248,244,.9);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.site-header .wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:22px;padding-bottom:22px;
+}
+.brand{display:flex;align-items:center;gap:13px;text-decoration:none}
+.mark{width:24px;height:32px;flex:none}
+.mark svg{width:100%;height:100%;overflow:visible;transition:transform .4s var(--ease)}
+.mark .mc{transition:transform .5s var(--ease)}
+.brand:hover .mark svg{transform:scale(1.07)}
+.brand:hover .mark .mc1{transform:translate(-11px,9px) scale(1.12)}
+.brand:hover .mark .mc2{transform:translate(11px,-7px) scale(1.07)}
+.brand:hover .mark .mc3{transform:translate(-36px,4px) scale(1.16)}
+.brand:hover .mark .mc4{transform:translate(-24px,-9px) scale(1.2)}
+.brand b{
+  display:block;font-family:var(--font-display);font-weight:400;
+  font-size:19px;letter-spacing:-.012em;line-height:1.1;
+}
+.brand .role-line{
+  display:block;margin-top:3px;
+  font-size:10.5px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);
+}
+.nav{display:flex;gap:30px}
+.nav a{
+  position:relative;font-size:11px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);text-decoration:none;
+  padding-bottom:3px;
+}
+.nav a::after{
+  content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.nav a:hover{color:var(--ink)}
+.nav a:hover::after{transform:scaleX(1)}
+
+/* ---------- dot-field (hero + footer) ---------- */
+.dots,.dots-bright{position:absolute;inset:0;pointer-events:none;z-index:0}
+.dots{
+  background-image:radial-gradient(circle, rgba(30,27,168,.14) 1px, transparent 1.6px);
+  background-size:20px 20px;
+}
+.dots-bright{
+  background-image:
+    radial-gradient(circle at 25% 25%, #3B9BEE 1.6px, transparent 2.1px),
+    radial-gradient(circle at 75% 25%, #4AA4F1 1.6px, transparent 2.1px),
+    radial-gradient(circle at 25% 75%, #3390E8 1.6px, transparent 2.1px),
+    radial-gradient(circle at 75% 75%, #5CB0F5 1.6px, transparent 2.1px);
+  background-size:40px 40px;
+  opacity:.5;
+  -webkit-clip-path:circle(70px at 50% 50%);
+  clip-path:circle(70px at 50% 50%);
+}
+/* twinkling subset - some dots periodically brighten then fade back */
+.dots-bright::before,.dots-bright::after{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(circle, #B3DCFB 1.9px, transparent 2.5px);
+  background-size:60px 60px;
+  animation:twinkle 3.8s ease-in-out infinite;
+}
+.dots-bright::after{
+  background-image:radial-gradient(circle, #8FC9F8 1.9px, transparent 2.5px);
+  background-position:20px 20px;
+  animation-duration:5.4s;
+  animation-delay:-2.2s;
+}
+@keyframes twinkle{0%,100%{opacity:0}50%{opacity:1}}
+
+/* ---------- section rhythm ---------- */
+.section{border-top:1px solid var(--rule)}
+
+/* ---------- scroll reveal ---------- */
+.js .reveal{
+  opacity:0;transform:translateY(16px);
+  transition:opacity .75s ease, transform .75s var(--ease);
+  transition-delay:var(--d,0s);
+}
+.js .reveal.is-in{opacity:1;transform:none}
+
+/* ---------- motion preferences ---------- */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .js .reveal{opacity:1 !important;transform:none !important}
+  .sheet{transform:none !important}
+  html{scroll-behavior:auto}
+}
