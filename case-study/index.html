@@ -156,12 +156,15 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
 .statement{font-family:var(--font-sans);font-weight:600;font-size:16px;line-height:1.7;
   color:var(--ink);margin:30px 0 0}
 .statement .red{color:var(--red)}
-.pain-list{display:grid;gap:13px}
-.pain{background:linear-gradient(155deg, rgba(198,40,40,.075) 0%, rgba(198,40,40,.028) 52%, rgba(198,40,40,0) 100%);
-  border:1px solid rgba(198,40,40,.14);border-radius:8px;padding:16px 19px}
-.pain .num{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--red);margin-bottom:8px}
+/* pain points - no cards: type only, a hairline between each item */
+.pain-list{display:grid;gap:0}
+.pain{display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:14px;align-items:baseline;
+  padding:22px 0;border-top:1px solid var(--rule)}
+.pain:first-child{border-top:0;padding-top:0}
+.pain .num{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--red);line-height:1.9}
 .pain h3{font-size:19px;font-weight:600;letter-spacing:.32px;line-height:1.22;margin:0 0 8px}
-.pain p{font-size:14.5px;line-height:1.62;color:var(--muted);margin:0}
+.pain p{grid-column:2;font-size:14.5px;line-height:1.62;color:var(--muted);margin:0}
+@media (max-width:560px){ .pain{grid-template-columns:1fr;column-gap:0} .pain p{grid-column:1} }
 
 /* ============================================================
    Shared columnar band - used by "Research next steps"
