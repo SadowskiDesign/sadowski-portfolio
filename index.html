@@ -28,7 +28,16 @@
   font-size:clamp(38px,5.2vw,64px);line-height:1.06;letter-spacing:-.022em;
   margin:0 0 32px;
 }
-.e-title em{font-style:italic;color:var(--accent)}
+/* the emphasised phrase arrives in the body colour, then lights up in the
+   accent once the headline has finished fading in (reveal = .1s delay + .75s) */
+.e-title em{
+  font-style:italic;color:var(--accent);
+  animation:hero-accent .7s var(--ease) .8s both;
+}
+@keyframes hero-accent{
+  from{color:var(--ink)}
+  to{color:var(--accent)}
+}
 .e-sub{font-size:16px;line-height:1.6;color:var(--muted);max-width:540px;margin:0 0 28px}
 .e-sub span{display:block}
 
