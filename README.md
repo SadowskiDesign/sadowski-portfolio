@@ -33,7 +33,7 @@ portfolio uzywa `sticky` (bo jego hero jest przyklejona kurtyna), a case study
 
 ### Obrazki
 
-`assets/` trzyma szesc plikow. Wczesniej byly wklejone w HTML jako base64, co
+`assets/` trzyma siedem plikow. Wczesniej byly wklejone w HTML jako base64, co
 oznaczalo +33% narzutu i trzy kopie tego samego screenshota. Teraz przegladarka
 pobiera kazdy obrazek raz i korzysta z cache przy przejsciu miedzy stronami.
 
