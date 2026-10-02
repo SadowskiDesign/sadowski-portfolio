@@ -1,0 +1,3 @@
+# Trzymaj LF w repo i na dysku - bez tego Git na Windows podmienia konce linii
+# na CRLF i potrafi pokazywac zmiany, ktorych nikt nie wprowadzil.
+* text=auto eol=lf
