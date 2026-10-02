@@ -31,6 +31,21 @@ Jedyna rzecz, ktora kazda strona ustawia sama, to pozycjonowanie naglowka:
 portfolio uzywa `sticky` (bo jego hero jest przyklejona kurtyna), a case study
 `fixed`. Reszta wygladu naglowka jest wspolna.
 
+### Typografia
+
+Dwie rodziny, zadeklarowane tylko raz, w `styles.css`:
+
+- `--font-display` - **Georgia**, szeryf do naglowkow i elementow redakcyjnych
+- `--font-sans` - **Segoe UI**, do tekstu ciaglego i interfejsu
+
+Zadnych webfontow - strona nie wykonuje zewnetrznych zapytan, wiec nie ma
+migniecia tekstu (FOUT) ani zaleznosci od dostepnosci cudzego serwera.
+
+Uwaga przy zmianach: Georgia ma tylko dwie wagi, **400 i 700**. Case study
+uzywa wag 500 i 600, ktore przy Georgii spadaja na najblizsza dostepna -
+500 na 400, a 600 na 700. Dlatego naglowki sekcji w case study sa pogrubione,
+a te same naglowki w portfolio nie.
+
 ### Obrazki
 
 `assets/` trzyma siedem plikow. Wczesniej byly wklejone w HTML jako base64, co
