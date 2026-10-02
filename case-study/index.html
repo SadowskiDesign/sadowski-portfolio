@@ -98,26 +98,28 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
 .callout .ck{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
 .callout p{font-size:14.5px;line-height:1.65;color:var(--ink);margin:0}
 .callout p b{font-weight:600}
-/* Ledger - sticky aside + editorial rows (from the exploration file) */
-.ledger{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.15fr);gap:56px;align-items:start}
+/* Ledger - sticky aside + editorial rows. Deliberately the same metrics as the
+   Research list, so the two read as one system: the only difference is that
+   these numbers are blue where the pain points' are red. */
+.ledger{display:grid;grid-template-columns:minmax(0,30fr) minmax(0,70fr);gap:56px;align-items:start}
 .ledger-aside{position:sticky;top:112px}
 .ledger-aside .sec-head{margin-bottom:0}
 .ledger-aside .sec-head h2{margin-bottom:24px}
 .ledger-aside .body{max-width:none}
-.ledger-list{list-style:none;margin:0;padding:0}
-.ledger-row{display:grid;grid-template-columns:44px minmax(0,1fr);gap:18px;padding:30px 0;border-bottom:1px solid var(--rule-strong)}
-.ledger-row:last-child{border-bottom:0}
-/* row number uses the same treatment as the section chapter numbers */
-.ledger-row .n{font-family:var(--font-sans);font-size:11px;font-weight:700;letter-spacing:.18em;
-  color:var(--accent);padding-top:8px}
-.ledger-row h3{margin:0 0 10px}
-.ledger-row p{font-size:14.5px;line-height:1.68;color:var(--muted);margin:0}
+.ledger-list{list-style:none;margin:0;padding:0;margin-top:40px}
+.ledger-row{display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:14px;align-items:baseline;
+  padding:22px 0;border-top:1px solid var(--rule)}
+.ledger-row:first-child{border-top:0;padding-top:0}
+.ledger-row .n{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--hl);line-height:1.9}
+.ledger-row h3{font-size:19px;font-weight:600;letter-spacing:.32px;line-height:1.22;margin:0 0 8px}
+.ledger-row p{font-size:14.5px;line-height:1.62;color:var(--muted);margin:0}
 .ledger-row p b{color:var(--ink);font-weight:600}
 @media (max-width:900px){
   .ledger{grid-template-columns:1fr;gap:30px}
   .ledger-aside{position:static}
-  .ledger-row{grid-template-columns:40px minmax(0,1fr);gap:16px}
+  .ledger-list{margin-top:0}
 }
+@media (max-width:560px){ .ledger-row{grid-template-columns:1fr;column-gap:0} }
 
 /* one system for both blocks - quotes are the evidence, findings the takeaways */
 .block-label{font-family:var(--font-sans);font-size:11px;font-weight:700;letter-spacing:.18em;
@@ -149,15 +151,21 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
 /* ============================================================
    Research - statement + pain points
    ============================================================ */
+/* align-items:start plus the offset below is what puts the first finding on
+   the same line as the h2. Centring the columns cannot do that: it moves the
+   left column down while the list stays put, so the title drifts off the line. */
 .pain-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:56px;align-items:start}
-@media (max-width:900px){ .pain-grid{grid-template-columns:1fr;gap:36px} }
+@media (max-width:900px){ .pain-grid{grid-template-columns:1fr;gap:36px} .pain-list{margin-top:0} }
 .pain-grid .sec-head{max-width:none;margin-bottom:26px}
 .pain-grid h2 .accent{color:var(--accent)}
 .statement{font-family:var(--font-sans);font-weight:600;font-size:16px;line-height:1.7;
   color:var(--ink);margin:30px 0 0}
 .statement .red{color:var(--red)}
-/* pain points - no cards: type only, a hairline between each item */
-.pain-list{display:grid;gap:0}
+/* pain points - no cards: type only, a hairline between each item.
+   The 40px offset skips the eyebrow block above the h2, so finding 01 starts
+   on the same line as the title. It tracks that eyebrow: change the eyebrow's
+   size or its bottom margin and this number has to follow. */
+.pain-list{display:grid;gap:0;margin-top:40px}
 .pain{display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:14px;align-items:baseline;
   padding:22px 0;border-top:1px solid var(--rule)}
 .pain:first-child{border-top:0;padding-top:0}
@@ -171,6 +179,8 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
    and "Quality of build"
    ============================================================ */
 
+/* Research, continued - merged into section 02: no divider, no chapter eyebrow */
+.section.next{border-top:0}
 .next .sec-head{margin-bottom:44px}
 .next-cols{display:grid;grid-template-columns:repeat(3,1fr)}
 .next-col{padding:36px 30px 0;border-left:1px solid var(--rule)}
@@ -195,8 +205,6 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
 .dec-col p{font-size:14px;line-height:1.6;color:var(--muted);margin:0}
 .dec-col .chose{background:var(--accent-wash);border-radius:8px;padding:11px 13px}
 .dec-col .chose p{font-weight:600;color:var(--ink);line-height:1.5}
-/* highlighted decision - same wash as the at-a-glance band, so the type stays dark */
-.dec.grad{background:var(--wash-grad);border-color:rgba(30,27,168,.16)}
 @media (max-width:1000px){
   .dec{grid-template-columns:40px minmax(0,1fr);row-gap:22px;padding:24px 22px}
   .dec-num{grid-column:1;grid-row:1}
@@ -363,7 +371,7 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
         <div class="reveal">
           <p class="body">Before I started drafting anything, I wanted to understand what I was working with. I spent the first phase of the project in research, learning the concept of renewable energy certificates (RECs).</p>
           <p class="body">Then the discovery phase kicked in. The client gave us user stories, and I took part in five shadow sessions and countless syncs to understand what users really do in the platform - and where it fails. Let me tell you, I saw what I came for.</p>
-          <p class="statement">With AI doing the lifting and me doing the sense-making, I synthesized the main flows and the <span class="red">crucial pain points</span></p>
+          <p class="statement">With AI doing the lifting and me doing the sense-making, I synthesized the main flows and the <span class="red">crucial pain points.</span></p>
         </div>
       </div>
 
@@ -393,11 +401,10 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
   </div>
 </section>
 
-<!-- ===================== 3 · RESEARCH NEXT STEPS ===================== -->
+<!-- ===================== RESEARCH, CONTINUED: NEXT STEPS ===================== -->
 <section class="section next" id="next-steps">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow"><span class="n">03</span> Research next steps</span>
       <h2>Exercises that <em>set the direction</em>.</h2>
       <p class="lede">With the pain points mapped, ideation became concrete - testing the structure with the people who know it best, sorting the filters people actually reach for, and studying how other products solve the same problems.</p>
     </div>
@@ -419,11 +426,11 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
   </div>
 </section>
 
-<!-- ===================== 4 · DESIGN DECISIONS ===================== -->
+<!-- ===================== 3 · DESIGN DECISIONS ===================== -->
 <section class="section" id="design-decisions">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow"><span class="n">04</span> Design decisions</span>
+      <span class="eyebrow"><span class="n">03</span> Design decisions</span>
       <h2>Three decisions, <em>on the record</em>.</h2>
       <p class="lede">Each one answers a specific trust problem - what was considered, what was chosen, and why. The pattern repeats on purpose, so the reasoning stays visible next to the outcome.</p>
     </div>
@@ -446,7 +453,7 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
         </div>
       </article>
 
-      <article class="dec grad reveal" style="--d:.08s">
+      <article class="dec reveal" style="--d:.08s">
         <div class="dec-num">02</div>
         <h3 class="dec-q">Where should a retirement begin?</h3>
         <div class="dec-col">
@@ -483,11 +490,11 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
   </div>
 </section>
 
-<!-- ===================== 5 · VALIDATION ===================== -->
+<!-- ===================== 4 · VALIDATION ===================== -->
 <section class="section" id="validation">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow"><span class="n">05</span> Validation</span>
+      <span class="eyebrow"><span class="n">04</span> Validation</span>
       <h2>Tested with the people <em>who’ll use it</em></h2>
     </div>
 
@@ -515,11 +522,11 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
   </div>
 </section>
 
-<!-- ===================== 6 · SOLUTION (navy sheet) ===================== -->
+<!-- ===================== 5 · SOLUTION (navy sheet) ===================== -->
 <section class="sheet" id="solution">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow"><span class="n">06</span> The solution</span>
+      <span class="eyebrow"><span class="n">05</span> The solution</span>
       <h2>Designing for <em>certainty</em></h2>
       <p class="lede">The redesigned portfolio turns a hard-to-scan table into a workspace. Drag the divider to see the shift.</p>
     </div>
@@ -566,11 +573,11 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
   </div>
 </section>
 
-<!-- ===================== 7 · QUALITY OF BUILD ===================== -->
+<!-- ===================== 6 · QUALITY OF BUILD ===================== -->
 <section class="section" id="quality-of-build">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow"><span class="n">07</span> Quality of build</span>
+      <span class="eyebrow"><span class="n">06</span> Quality of build</span>
       <h2>One library, <em>one set of tokens</em>.</h2>
       <p class="lede">The design was built with the components it was specified against - and stayed testable after handoff.</p>
     </div>
@@ -592,13 +599,13 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
   </div>
 </section>
 
-<!-- ===================== 8 · OUTCOME ===================== -->
+<!-- ===================== 7 · OUTCOME ===================== -->
 <section class="section" id="outcome">
   <div class="wrap">
     <div class="ledger">
       <div class="ledger-aside reveal">
         <div class="sec-head">
-          <span class="eyebrow"><span class="n">08</span> Outcome</span>
+          <span class="eyebrow"><span class="n">07</span> Outcome</span>
           <h2>What the work <em>settled</em>.</h2>
         </div>
         <p class="body">The design was approved with <b>no outstanding concerns</b> and handed off as screens, flows and a prototype; engineering built the frontend on a component library adapted to the brand. What I can point to is qualitative - but four things came out of it that I’d carry into the next high-stakes flow.</p>
