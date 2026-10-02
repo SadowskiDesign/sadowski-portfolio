@@ -118,48 +118,18 @@ h2{
 .sheet h2{color:#fff}
 .sheet .section-head p{color:rgba(255,255,255,.68)}
 .worklist{list-style:none;margin:0;padding:0}
-.work-row{
-  display:grid;grid-template-columns:52px minmax(0,1fr) 330px;
-  gap:38px;align-items:start;
-  padding:36px 0;border-top:1px solid rgba(255,255,255,.16);
-}
-.worklist .work-row:first-child{border-top:0}
 .idx{
   font-size:16px;font-weight:600;letter-spacing:.06em;
-  color:var(--accent-on-dark);padding-top:4px;
+  color:var(--accent-on-dark);
 }
 .tags{
   margin:0 0 14px;
   font-size:10.5px;font-weight:600;letter-spacing:.15em;
   text-transform:uppercase;color:rgba(255,255,255,.6);
 }
-.work-row h3{
-  font-family:var(--font-display);font-weight:400;
-  font-size:clamp(22px,2.3vw,28px);line-height:1.2;letter-spacing:-.015em;
-  max-width:22em;margin:0 0 13px;
-}
-.work-row h3 a{
-  color:#fff;text-decoration:none;
-  background-image:linear-gradient(currentColor,currentColor);
-  background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;
-  transition:background-size .5s cubic-bezier(.22,.61,.36,1),color .3s ease;
-}
-.work-row:hover h3 a{color:var(--accent-2);background-size:100% 1px}
 .sum{font-size:15px;line-height:1.62;color:rgba(255,255,255,.68);max-width:56ch;margin:0 0 16px}
 .role{font-size:12.5px;color:rgba(255,255,255,.6);margin:0}
 .role::before{content:"- ";color:var(--accent-2)}
-.thumb{
-  position:relative;overflow:hidden;
-  aspect-ratio:16/10;border-radius:10px;
-  background:repeating-linear-gradient(135deg, rgba(255,255,255,.06) 0 12px, rgba(255,255,255,.11) 12px 24px);
-  border:1px solid rgba(255,255,255,.14);
-  display:grid;place-items:center;text-align:center;padding:0 20px;
-  font-size:10px;font-weight:600;letter-spacing:.14em;
-  text-transform:uppercase;color:rgba(255,255,255,.5);
-  transition:border-color .35s ease;
-}
-.work-row:hover .thumb{border-color:rgba(255,255,255,.32)}
-.work-row.is-placeholder .thumb{border-style:dashed;background:transparent}
 
 /* ============================================================
    Featured case study - image left, copy right.
@@ -173,7 +143,7 @@ h2{
   color:inherit;text-decoration:none;
 }
 .worklist .work-item:first-child .case-feature{border-top:0}
-.case-feature:focus-visible{outline:2px solid var(--accent-on-dark);outline-offset:6px;border-radius:4px}
+a.case-feature:focus-visible{outline:2px solid var(--accent-on-dark);outline-offset:6px;border-radius:4px}
 .case-media{
   position:relative;margin:0;overflow:hidden;
   aspect-ratio:1200/1415;border-radius:12px;
@@ -185,12 +155,12 @@ h2{
   object-fit:cover;object-position:top center;display:block;
   transition:transform .6s var(--ease);
 }
-.case-media figcaption{
-  position:absolute;left:0;right:0;bottom:0;
-  padding:52px 22px 18px;
-  font-size:10.5px;font-weight:600;letter-spacing:.14em;
-  text-transform:uppercase;color:rgba(255,255,255,.74);
-  background:linear-gradient(180deg, rgba(11,9,64,0) 0%, rgba(11,9,64,.82) 60%, rgba(11,9,64,.94) 100%);
+/* second card - same layout, no visual yet */
+.case-media--placeholder{
+  background:transparent;border-style:dashed;
+  display:grid;place-items:center;text-align:center;padding:0 24px;
+  font-size:10px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(255,255,255,.42);
 }
 .case-copy .idx{display:block;margin:0 0 14px;padding-top:0}
 .case-copy h3{
@@ -200,9 +170,9 @@ h2{
   transition:color .3s ease;
 }
 .case-copy .sum{max-width:52ch}
-.case-feature:hover .case-media{border-color:rgba(255,255,255,.34)}
-.case-feature:hover .case-media img{transform:scale(1.03)}
-.case-feature:hover .case-copy h3{color:var(--accent-2)}
+a.case-feature:hover .case-media{border-color:rgba(255,255,255,.34)}
+a.case-feature:hover .case-media img{transform:scale(1.03)}
+a.case-feature:hover .case-copy h3{color:var(--accent-2)}
 
 /* ============================================================
    How I work
@@ -330,8 +300,6 @@ h2{
   .section-head{flex-direction:column;align-items:flex-start;gap:12px}
   .section-head p{text-align:left}
   .sheet{padding:64px 0 72px}
-  .work-row{grid-template-columns:34px minmax(0,1fr);gap:20px}
-  .thumb{grid-column:2;margin-top:20px}
   .case-feature{grid-template-columns:1fr;gap:26px;align-items:start}
   .case-media{max-width:430px}
   .case-copy h3{font-size:clamp(24px,5.4vw,30px)}
@@ -420,10 +388,9 @@ h2{
         <li class="work-item reveal">
           <a class="case-feature" href="case-study/index.html"
              aria-label="Read the full case study: Making the uncertain feel clear, safe and trustworthy">
-            <figure class="case-media">
+            <div class="case-media">
               <img src="assets/holdings-overview.webp" alt="The redesigned registry: holdings overview with active holdings, filters, saved queries and the action bar" width="1200" height="1415" />
-              <figcaption>After &mdash; redesigned portfolio</figcaption>
-            </figure>
+            </div>
             <div class="case-copy">
               <span class="idx">01</span>
               <p class="tags">Product Design &middot; Climate / renewable-energy SaaS</p>
@@ -440,33 +407,24 @@ h2{
           </a>
         </li>
 
-        <li class="work-row reveal">
-          <span class="idx">02</span>
-          <div>
-            <p class="tags">Excel add-in &middot; Commodity markets</p>
-            <h3><a href="#">Putting live commodity data inside Excel</a></h3>
-            <p class="sum">
-              An Excel add-in designed from the ground up so analysts can pull market data
-              without leaving their spreadsheet - solved inside a tightly constrained
-              sidebar.
-            </p>
-            <p class="role">End-to-end designer, research to shipped UI</p>
+        <!-- Placeholder for the second case study. When it exists, make this
+             card a link to it and swap the placeholder media for the real
+             screenshot. -->
+        <li class="work-item reveal">
+          <div class="case-feature">
+            <div class="case-media case-media--placeholder">Project visual &mdash; placeholder</div>
+            <div class="case-copy">
+              <span class="idx">02</span>
+              <p class="tags">Excel add-in &middot; Commodity markets</p>
+              <h3>Putting live commodity data inside Excel</h3>
+              <p class="sum">
+                An Excel add-in designed from the ground up so analysts can pull market data
+                without leaving their spreadsheet - solved inside a tightly constrained
+                sidebar.
+              </p>
+              <p class="role">End-to-end designer, research to shipped UI</p>
+            </div>
           </div>
-          <div class="thumb">Project visual - placeholder</div>
-        </li>
-
-        <li class="work-row is-placeholder reveal">
-          <span class="idx">03</span>
-          <div>
-            <p class="tags">Third project &middot; to be defined</p>
-            <h3>Third case study - in progress</h3>
-            <p class="sum">
-              This slot is reserved for the third project. Content and visuals will be added
-              once the project is selected.
-            </p>
-            <p class="role">Role to be confirmed</p>
-          </div>
-          <div class="thumb">Reserved slot</div>
         </li>
 
       </ol>
