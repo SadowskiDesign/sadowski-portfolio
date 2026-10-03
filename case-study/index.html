@@ -64,10 +64,13 @@ body{text-rendering:optimizeLegibility;overflow-x:hidden;line-height:1.65}
   line-height:1.32;letter-spacing:-.012em;color:var(--ink);margin:0 0 22px;max-width:60ch}
 .tldr-lead mark{background:none;color:var(--accent)}
 .tldr-detail{font-size:15.5px;line-height:1.62;color:var(--muted);margin:0 0 26px}
-.tldr-chips{display:flex;flex-wrap:wrap;gap:9px}
-.tldr-chip{display:inline-flex;align-items:center;gap:6px;padding:10px 12px;background:var(--surface);border:1px solid rgba(30,27,168,.15);border-radius:10px;font-size:clamp(10.5px,0.95vw,11.5px);font-weight:500;color:var(--ink);white-space:nowrap}
-.tldr-chip .bull{flex:0 0 auto;width:12px;height:12px;color:var(--accent)}
-.tldr-chip .bull svg{display:block;width:100%;height:100%}
+/* the three outcomes, as cards in the same shape as the pain points but with
+   no description - just a number and the claim */
+.tldr-chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.tldr-chip{background:var(--surface);border:1px solid var(--rule-strong);border-radius:10px;padding:18px 20px 20px}
+.tldr-chip .num{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--accent);line-height:1;margin:0 0 10px}
+.tldr-chip h3{font-family:var(--font-sans);font-size:15px;font-weight:600;letter-spacing:.01em;line-height:1.3;color:var(--ink);margin:0}
+@media (max-width:760px){ .tldr-chips{grid-template-columns:1fr} }
 .section .wrap{padding-top:72px;padding-bottom:80px}
 .sec-head{margin-bottom:40px}
 .eyebrow{display:inline-flex;align-items:center;gap:11px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 16px}
@@ -168,7 +171,6 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
 
 /* Research, continued - merged into section 02: no divider, no chapter eyebrow */
 .section.next{border-top:0}
-.next .sec-head{margin-bottom:44px}
 .next-cols{display:grid;grid-template-columns:repeat(3,1fr)}
 .next-col{padding:36px 30px 0;border-left:1px solid var(--rule)}
 .next-col:first-child{border-left:0;padding-left:0}
@@ -196,6 +198,9 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
    ============================================================ */
 .sub-head{font-family:var(--font-display);font-weight:400;font-size:clamp(20px,2.1vw,26px);
   line-height:1.22;letter-spacing:-.014em;color:var(--ink);margin:0 0 24px}
+/* the accent word without italic: the sub-head is already a serif, and the
+   plain sub-heads beside it would look like a different voice in italic */
+.sub-head em{font-style:normal;color:var(--accent)}
 
 /* user stories - hairline columns in a 2x2. Four across one row leaves no room
    for the story text, so the grid is two by two and the hairlines do the
@@ -328,7 +333,9 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
    ============================================================ */
 /* the footer is the portfolio's contact block, so the two ends of the site
    match. Only the back-to-top button is extra. */
-.footer{position:relative;overflow:hidden}
+/* the home page separates this block from the marquee above it; here nothing
+   does, so the footer carries its own top rule */
+.footer{position:relative;overflow:hidden;border-top:1px solid var(--rule)}
 .footer .wrap{position:relative;z-index:1;padding-top:84px;padding-bottom:78px}
 .footer h2{font-size:clamp(30px,3.4vw,44px);margin-bottom:20px;color:var(--accent)}
 .footer p.intro{font-size:16.5px;line-height:1.65;color:var(--muted);margin:0 0 34px}
@@ -348,7 +355,7 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
 .footer .contact-meta a:hover{color:var(--accent);border-color:var(--accent)}
 .footer .sep{color:var(--muted)}
 .footer .contact-meta .copy{margin-left:auto}
-.footer-top{display:flex;justify-content:flex-end;margin-top:36px}
+.footer-top{display:flex;justify-content:flex-end;margin:0 0 34px}
 .backtop{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:13.5px;color:#fff;background:var(--accent);padding:13px 22px;border-radius:999px;transition:transform .3s var(--ease),background .3s}
 .backtop:hover{transform:translateY(-3px);background:#14116B}
 
@@ -425,9 +432,18 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
         <p class="tldr-lead">“Did that go through alright? <mark>I don’t know.”</mark></p>
         <p class="tldr-detail">I unified monthly and hourly holdings, moved actions into the holdings context, added scoping and filtering, and designed a guided three-step flow with an explicit completion state and actionable error states - and the uncertainty was gone.</p>
         <div class="tldr-chips">
-          <span class="tldr-chip"><span class="bull" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.6" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="7" r="2.1" fill="currentColor"/></svg></span>One overview for both certificate types</span>
-          <span class="tldr-chip"><span class="bull" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.6" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="7" r="2.1" fill="currentColor"/></svg></span>Actions start from selected holdings</span>
-          <span class="tldr-chip"><span class="bull" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.6" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="7" r="2.1" fill="currentColor"/></svg></span>Outcome is always visible</span>
+          <div class="tldr-chip">
+            <div class="num">01</div>
+            <h3>Monthly and hourly in one workspace</h3>
+          </div>
+          <div class="tldr-chip">
+            <div class="num">02</div>
+            <h3>Actions start from the holdings you selected</h3>
+          </div>
+          <div class="tldr-chip">
+            <div class="num">03</div>
+            <h3>Feedback at every step of the way</h3>
+          </div>
         </div>
       </div>
     </div>
@@ -478,12 +494,12 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
               <li>
                 <span class="story-n">User story 3</span>
                 <h3>Multiple Time Zone Support</h3>
-                <p>As a participant in a Voluntary Renewable program, I should not have to select the granularity of certificate vintage. This is assigned by program.</p>
+                <p>As a participant working across several time zones, I want timestamps reported consistently, so that I can compare hourly output directly.</p>
               </li>
               <li>
                 <span class="story-n">User story 4</span>
                 <h3>Unify Monthly and Hourly Programs</h3>
-                <p>As a participant in a Voluntary Renewable program, I should not have to select the granularity of certificate vintage. This is assigned by program.</p>
+                <p>As a user, I want to switch easily between hourly and monthly holdings, so that I can see the same portfolio at either level of detail.</p>
               </li>
             </ol>
     </div>
@@ -497,7 +513,7 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
         </figure>
         <figure class="legacy-fig">
           <img src="../assets/legacy-screen.webp" alt="The legacy registry - a flat, view-only certificate table with no filtering" width="1800" height="900" loading="lazy" decoding="async" />
-          <figcaption>The screen all of it happened on - one flat table, no filtering, and no actions where the work actually happens.</figcaption>
+          <figcaption>The screen all of it happened on - one flat table, no filtering.</figcaption>
         </figure>
       </div>
     </div>
@@ -534,9 +550,10 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
 <!-- ===================== RESEARCH, CONTINUED: NEXT STEPS ===================== -->
 <section class="section next" id="next-steps">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <h2>Exercises that <em>set the direction</em>.</h2>
-      <p class="lede">With the pain points mapped, ideation became concrete - testing the structure with the people who know it best, brainstorming the filters people actually reach for, and studying how other products solve the same problems.</p>
+    <div class="reveal" style="margin-bottom:26px">
+      <p class="block-label">The exercises</p>
+      <p class="sub-head">Exercises that <em>set the direction</em>.</p>
+      <p class="body wide">With the pain points mapped, ideation became concrete - testing the structure with the people who know it best, brainstorming the filters people actually reach for, and studying how other products solve the same problems.</p>
     </div>
 
     <div class="next-cols">
@@ -832,6 +849,9 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
   <div class="dots" aria-hidden="true"></div>
   <div class="dots-bright" aria-hidden="true"></div>
   <div class="wrap">
+    <div class="footer-top reveal">
+      <a class="backtop" href="#top">↑ Back to top</a>
+    </div>
     <h2 class="reveal">Let&rsquo;s work together</h2>
     <p class="intro reveal">
       I&rsquo;m open to UX/UI roles in enterprise and data-heavy products. The fastest way
@@ -845,9 +865,6 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
       <span class="sep">/</span>
       <span>Kraków, Poland</span>
       <span class="copy">&copy; 2026 Michał Sadowski</span>
-    </div>
-    <div class="footer-top reveal">
-      <a class="backtop" href="#top">↑ Back to top</a>
     </div>
   </div>
 </footer>
