@@ -101,7 +101,7 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
 /* Ledger - sticky aside + editorial rows. Deliberately the same metrics as the
    Research list, so the two read as one system: the only difference is that
    these numbers are blue where the pain points' are red. */
-.ledger{display:grid;grid-template-columns:minmax(0,30fr) minmax(0,70fr);gap:56px;align-items:start}
+.ledger{display:grid;grid-template-columns:minmax(0,30fr) minmax(0,70fr);gap:92px;align-items:start}
 .ledger-aside{position:sticky;top:112px}
 .ledger-aside .sec-head{margin-bottom:0}
 .ledger-aside .sec-head h2{margin-bottom:24px}
@@ -154,17 +154,12 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
    Research - user stories, the legacy flow, and its pain points
    ============================================================ */
 #research h2 .accent{color:var(--accent)}
-/* pain points - a row of four, closing the section. The number sits above the
-   title: at a quarter of the width there is no room for a number column beside
-   the text, so the hairline between items does the separating instead. */
-.pain-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
-.pain{padding:0 26px;border-left:1px solid var(--rule)}
-.pain:first-child{padding-left:0;border-left:0}
+/* pain points - a card each, four across, closing the section */
+.pain-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.pain{border:1px solid var(--rule-strong);border-radius:10px;padding:24px 26px 26px;background:var(--surface)}
 .pain .num{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--red);line-height:1;margin:0 0 14px}
 @media (max-width:900px){
   .pain-list{grid-template-columns:1fr}
-  .pain{padding:20px 0 0;border-left:0;border-top:1px solid var(--rule)}
-  .pain:first-child{padding-top:0;border-top:0}
 }
 
 /* ============================================================
@@ -202,22 +197,32 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
 .sub-head{font-family:var(--font-display);font-weight:400;font-size:clamp(20px,2.1vw,26px);
   line-height:1.22;letter-spacing:-.014em;color:var(--ink);margin:0 0 24px}
 
-.stories{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:0;padding:0}
-.stories li{border:1px solid var(--rule-strong);border-radius:10px;padding:24px 26px 26px;background:var(--surface)}
+/* user stories - hairline columns in a 2x2. Four across one row leaves no room
+   for the story text, so the grid is two by two and the hairlines do the
+   separating: a rule down the middle, and one under the top row. */
+.stories{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:0;padding:0}
+.stories li{padding:26px 40px 26px 0;border-top:1px solid var(--rule)}
+.stories li:nth-child(2n){padding-left:40px;padding-right:0;border-left:1px solid var(--rule)}
+.stories li:nth-child(-n+2){border-top:0;padding-top:0}
 .stories .story-n{display:block;font-family:var(--font-sans);font-size:10px;font-weight:700;
   letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
 
-/* the flow diagram is a standalone SVG: it keeps its own type and its own
-   geometry, so it scales as one picture instead of reflowing. Below 760px it
-   stops shrinking and scrolls instead - at 320px wide the 13.5px notes would
-   be under 5px and unreadable. */
-.flow-fig{margin:0 0 44px;overflow-x:auto;overflow-y:hidden}
-.flow-fig img{display:block;width:100%;height:auto;min-width:760px}
+/* the flow and the screen it ran on, side by side. The diagram is a standalone
+   SVG with its canvas cropped to the text and its notes wrapped tight, so the
+   column only needs 397px - which leaves the screen beside it the widest share
+   of the row. The column is sized so the diagram lands at 1:1. Below 900px the
+   pair stacks and the diagram scrolls. */
+.flow-pair{display:grid;grid-template-columns:minmax(0,421px) minmax(0,1fr);gap:32px;align-items:center}
+.flow-fig{margin:0;padding-left:24px;overflow-x:auto;overflow-y:hidden}
+.flow-fig img{display:block;width:100%;height:auto;min-width:397px}
 
-.legacy-fig{margin:44px 0 0}
+.legacy-fig{margin:0}
 .legacy-fig img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--rule-strong);
   box-shadow:0 22px 50px -40px rgba(23,19,15,.35)}
 .legacy-fig figcaption{margin:14px 0 0;font-size:13px;line-height:1.6;color:var(--muted)}
+@media (max-width:900px){
+  .flow-pair{grid-template-columns:1fr;gap:34px}
+}
 
 /* prototype video - loops on its own, one click anywhere on it pauses */
 .proto-fig{margin:0}
@@ -238,27 +243,35 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
   border-right:0;border-top:8px solid transparent;border-bottom:8px solid transparent}
 .proto-fig figcaption{margin:14px 0 0;font-size:13px;line-height:1.6;color:rgba(255,255,255,.62)}
 @media (max-width:900px){
+  /* one column: the middle rule goes, the separators become horizontal */
   .stories{grid-template-columns:1fr}
+  .stories li{padding:24px 0 0;border-left:0;border-top:1px solid var(--rule)}
+  .stories li:nth-child(2n){padding-left:0}
+  .stories li:first-child{border-top:0;padding-top:0}
 }
 
 /* ============================================================
    Design decisions
    ============================================================ */
 .dec-list{display:grid;gap:20px}
-.dec{display:grid;grid-template-columns:44px minmax(0,1.15fr) minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr);
-  gap:30px;align-items:start;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:28px 30px}
-.dec-num{font-size:15px;font-weight:600;letter-spacing:.04em;color:var(--accent);padding-top:5px}
+.dec{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:28px 30px}
+/* the number sits above the question, and the three columns run the full width
+   of the card beneath both */
+.dec-head{margin-bottom:28px}
+.dec-num{font-size:15px;font-weight:600;letter-spacing:.04em;color:var(--accent);margin:0 0 12px}
 .dec-q{font-family:var(--font-display);font-weight:400;font-size:clamp(20px,2.2vw,25px);line-height:1.16;
   letter-spacing:-.02em;color:var(--ink);margin:0}
+/* Why carries the most text, so it takes the extra width */
+.dec-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.92fr) minmax(0,1.5fr);
+  gap:30px;align-items:start}
 .dec-col .lab{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:11px}
 .dec-col p{font-size:14px;line-height:1.6;color:var(--muted);margin:0}
 .dec-col .chose{background:var(--accent-wash);border-radius:8px;padding:11px 13px}
 .dec-col .chose p{font-weight:600;color:var(--ink);line-height:1.5}
 @media (max-width:1000px){
-  .dec{grid-template-columns:40px minmax(0,1fr);row-gap:22px;padding:24px 22px}
-  .dec-num{grid-column:1;grid-row:1}
-  .dec-q{grid-column:2;grid-row:1}
-  .dec-col{grid-column:2}
+  .dec{padding:24px 22px}
+  .dec-head{margin-bottom:20px}
+  .dec-body{grid-template-columns:1fr;gap:22px}
 }
 
 /* ============================================================
@@ -311,18 +324,33 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
 .sheet .callout p b{color:#fff}
 
 /* ============================================================
-   Footer / colophon
+   Footer - the portfolio's contact block
    ============================================================ */
-.footer{position:relative;overflow:hidden;border-top:1px solid var(--rule)}
-.footer .wrap{position:relative;z-index:1;padding-top:72px;padding-bottom:40px}
-.footer .big{font-family:var(--font-display);font-style:italic;font-size:clamp(22px,3vw,32px);line-height:1.3;max-width:32ch;color:var(--ink);margin:0 0 18px}
-.footer .big .accent{color:var(--accent)}
-.footer .small{font-size:13.5px;line-height:1.7;color:var(--muted);max-width:52ch}
-.footer .small a{color:var(--accent);border-bottom:1px solid var(--rule-strong)}
-.footer .inner{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:50px}
+/* the footer is the portfolio's contact block, so the two ends of the site
+   match. Only the back-to-top button is extra. */
+.footer{position:relative;overflow:hidden}
+.footer .wrap{position:relative;z-index:1;padding-top:84px;padding-bottom:78px}
+.footer h2{font-size:clamp(30px,3.4vw,44px);margin-bottom:20px;color:var(--accent)}
+.footer p.intro{font-size:16.5px;line-height:1.65;color:var(--muted);margin:0 0 34px}
+.footer .email{
+  display:inline-block;
+  font-family:var(--font-display);font-size:clamp(22px,2.6vw,32px);
+  letter-spacing:-.015em;text-decoration:none;
+  border-bottom:2px solid var(--accent);padding-bottom:4px;
+  transition:color .3s ease;
+}
+.footer .email:hover{color:var(--accent)}
+.footer .contact-meta{
+  display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+  margin-top:34px;font-size:14px;color:var(--muted);
+}
+.footer .contact-meta a{text-decoration:none;border-bottom:1px solid var(--rule-strong);padding-bottom:2px;transition:color .3s,border-color .3s}
+.footer .contact-meta a:hover{color:var(--accent);border-color:var(--accent)}
+.footer .sep{color:var(--muted)}
+.footer .contact-meta .copy{margin-left:auto}
+.footer-top{display:flex;justify-content:flex-end;margin-top:36px}
 .backtop{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:13.5px;color:#fff;background:var(--accent);padding:13px 22px;border-radius:999px;transition:transform .3s var(--ease),background .3s}
 .backtop:hover{transform:translateY(-3px);background:#14116B}
-.colophon{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:22px;border-top:1px solid var(--rule);font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
 
 /* ============================================================
    Responsive + motion preferences
@@ -375,7 +403,7 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
       <div class="m"><div class="k">My role</div><div class="v">Product Designer</div></div>
       <div class="m"><div class="k">Project type</div><div class="v">Redesign</div></div>
       <div class="m"><div class="k">Domain</div><div class="v">Climate / renewable-energy SaaS</div></div>
-      <div class="m"><div class="k">Timeline</div><div class="v">~6 months</div></div>
+      <div class="m"><div class="k">Timeline</div><div class="v">3 months</div></div>
       <div class="m"><div class="k">Team</div><div class="v">One design partner + frontend engineering</div></div>
     </div>
 
@@ -463,13 +491,15 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
     <div class="reveal" style="margin-top:64px">
       <p class="block-label">The legacy transfer flow</p>
       <p class="sub-head">Four steps, ending in silence.</p>
-      <figure class="flow-fig">
-        <img src="../assets/legacy-flow.svg" alt="The legacy transfer flow in four steps: navigate to view RECs, decide to transfer, open batch transfer setup, submit the batch transfer." width="1060" height="240" loading="lazy" decoding="async" />
-      </figure>
-      <figure class="legacy-fig">
-              <img src="../assets/legacy-portfolio.webp" alt="The legacy registry - a flat, view-only certificate table with no filtering" width="2080" height="1032" loading="lazy" decoding="async" />
-              <figcaption>The screen all of it happened on - one flat table, no filtering, and no actions where the work actually happens.</figcaption>
-            </figure>
+      <div class="flow-pair">
+        <figure class="flow-fig">
+          <img src="../assets/legacy-flow.svg" alt="The legacy transfer flow in four steps: navigate to view RECs, decide to transfer, open batch transfer setup, submit the batch transfer." width="397" height="403" loading="lazy" decoding="async" />
+        </figure>
+        <figure class="legacy-fig">
+          <img src="../assets/legacy-screen.webp" alt="The legacy registry - a flat, view-only certificate table with no filtering" width="1800" height="900" loading="lazy" decoding="async" />
+          <figcaption>The screen all of it happened on - one flat table, no filtering, and no actions where the work actually happens.</figcaption>
+        </figure>
+      </div>
     </div>
 
     <div class="reveal" style="margin-top:64px">
@@ -531,59 +561,92 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow"><span class="n">03</span> Design decisions</span>
-      <h2>Three decisions, <em>on the record</em>.</h2>
+      <h2>Four decisions, <em>on the record</em>.</h2>
       <p class="lede">Each one answers a specific trust problem - what was considered, what was chosen, and why. The pattern repeats on purpose, so the reasoning stays visible next to the outcome.</p>
     </div>
 
     <div class="dec-list">
       <article class="dec reveal">
-        <div class="dec-num">01</div>
-        <h3 class="dec-q">How should users understand a dense portfolio?</h3>
-        <div class="dec-col">
-          <div class="lab">Considered</div>
-          <p>Keep active and retired pages separate; preserve the legacy folder tree; or show every certificate row immediately.</p>
+        <div class="dec-head">
+          <div class="dec-num">01</div>
+          <h3 class="dec-q">How should users understand a dense portfolio?</h3>
         </div>
-        <div class="dec-col">
-          <div class="lab">Chose</div>
-          <div class="chose"><p>A rolled-up unified portfolio with breadcrumb drill-down.</p></div>
-        </div>
-        <div class="dec-col">
-          <div class="lab">Why</div>
-          <p>The overview keeps hourly and monthly holdings legible together, while drill-down preserves detail without front-loading hundreds of hourly records.</p>
+        <div class="dec-body">
+          <div class="dec-col">
+            <div class="lab">Considered</div>
+            <p>Keep active and retired pages separate; preserve the legacy folder tree; or show every certificate row immediately.</p>
+          </div>
+          <div class="dec-col">
+            <div class="lab">Chose</div>
+            <div class="chose"><p>A rolled-up unified portfolio with breadcrumb drill-down.</p></div>
+          </div>
+          <div class="dec-col">
+            <div class="lab">Why</div>
+            <p>The overview keeps hourly and monthly holdings legible together, while drill-down preserves detail without front-loading hundreds of hourly records.</p>
+          </div>
         </div>
       </article>
 
       <article class="dec reveal" style="--d:.08s">
-        <div class="dec-num">02</div>
-        <h3 class="dec-q">Where should a retirement begin?</h3>
-        <div class="dec-col">
-          <div class="lab">Considered</div>
-          <p>A global action in navigation; a detached retirement form; or an action embedded in the selected holdings context.</p>
+        <div class="dec-head">
+          <div class="dec-num">02</div>
+          <h3 class="dec-q">Where should certificate retirement begin?</h3>
         </div>
-        <div class="dec-col">
-          <div class="lab">Chose</div>
-          <div class="chose"><p>Actions launch from selected holdings.</p></div>
-        </div>
-        <div class="dec-col">
-          <div class="lab">Why</div>
-          <p>Selection makes scope visible before the user commits. The action bar can summarize count, quantity, and eligibility in place.</p>
+        <div class="dec-body">
+          <div class="dec-col">
+            <div class="lab">Considered</div>
+            <p>A global action in navigation; a detached retirement form; or an action embedded in the selected holdings context.</p>
+          </div>
+          <div class="dec-col">
+            <div class="lab">Chose</div>
+            <div class="chose"><p>Actions launch from selected holdings.</p></div>
+          </div>
+          <div class="dec-col">
+            <div class="lab">Why</div>
+            <p>Selection makes scope visible before the user commits. The action bar can summarize count, quantity, and eligibility in place.</p>
+          </div>
         </div>
       </article>
 
       <article class="dec reveal" style="--d:.16s">
-        <div class="dec-num">03</div>
-        <h3 class="dec-q">How much guidance does an irreversible action need?</h3>
-        <div class="dec-col">
-          <div class="lab">Considered</div>
-          <p>A compact modal; a single long form; or a staged flow with review and acknowledgment.</p>
+        <div class="dec-head">
+          <div class="dec-num">03</div>
+          <h3 class="dec-q">How much guidance does an irreversible action need?</h3>
         </div>
-        <div class="dec-col">
-          <div class="lab">Chose</div>
-          <div class="chose"><p>A guided full-screen, three-step flow.</p></div>
+        <div class="dec-body">
+          <div class="dec-col">
+            <div class="lab">Considered</div>
+            <p>A compact modal; a single long form; or a staged flow with review and acknowledgment.</p>
+          </div>
+          <div class="dec-col">
+            <div class="lab">Chose</div>
+            <div class="chose"><p>A guided full-screen, three-step flow.</p></div>
+          </div>
+          <div class="dec-col">
+            <div class="lab">Why</div>
+            <p>The sequence creates room to configure, review, and explicitly acknowledge consequences - then ends with an unmistakable outcome.</p>
+          </div>
         </div>
-        <div class="dec-col">
-          <div class="lab">Why</div>
-          <p>The sequence creates room to configure, review, and explicitly acknowledge consequences - then ends with an unmistakable outcome.</p>
+      </article>
+
+      <article class="dec reveal" style="--d:.24s">
+        <div class="dec-head">
+          <div class="dec-num">04</div>
+          <h3 class="dec-q">How should people narrow a table of thousands?</h3>
+        </div>
+        <div class="dec-body">
+          <div class="dec-col">
+            <div class="lab">Considered</div>
+            <p>One search box across every field; a fixed row of column filters; or a query builder that can also be saved.</p>
+          </div>
+          <div class="dec-col">
+            <div class="lab">Chose</div>
+            <div class="chose"><p>Three depths - a chip from any cell, a query panel, saved queries.</p></div>
+          </div>
+          <div class="dec-col">
+            <div class="lab">Why</div>
+            <p>A quick question and a complicated one should not cost the same effort. Clicking a value covers the common case in one move, the panel handles conditions a column cannot express, and saving means a recurring report is rebuilt by name instead of by memory.</p>
+          </div>
         </div>
       </article>
     </div>
@@ -755,7 +818,7 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
         <li class="ledger-row reveal" style="--d:.24s">
           <div class="n">04</div>
           <div>
-            <h3>I push for early 1:1 user testing</h3>
+            <h3>Push for 1:1 early testing</h3>
             <p>One person, one task, no audience. A handful of sessions at that stage surfaces friction that group walkthroughs quietly hide - and it <b>costs almost nothing</b> to run.</p>
           </div>
         </li>
@@ -764,22 +827,27 @@ h3{font-family:var(--font-display);font-weight:600;font-size:clamp(19px,2.2vw,23
   </div>
 </section>
 
-<!-- ===================== FOOTER ===================== -->
+<!-- ===================== FOOTER (same block as the portfolio home) ===================== -->
 <footer class="footer">
   <div class="dots" aria-hidden="true"></div>
   <div class="dots-bright" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="inner">
-      <div>
-        <p class="big">“Did that go through alright? I don’t know.” - <span class="accent">solved.</span></p>
-        <p class="small">A product-design case study on modernizing a 15-year-old renewable-energy certificate registry. Screenshots shown are from the redesigned product and its legacy predecessor. <a href="../index.html#work">Back to the portfolio</a>.</p>
-      </div>
-      <a class="backtop" href="#top">↑ Back to top</a>
+    <h2 class="reveal">Let&rsquo;s work together</h2>
+    <p class="intro reveal">
+      I&rsquo;m open to UX/UI roles in enterprise and data-heavy products. The fastest way
+      to reach me is email.
+    </p>
+    <a class="email reveal" href="mailto:sadowskidesign@gmail.com">sadowskidesign@gmail.com</a>
+    <div class="contact-meta reveal">
+      <a href="https://www.linkedin.com/in/msadowskidesign/">LinkedIn</a>
+      <span class="sep">/</span>
+      <span>CV - pending</span>
+      <span class="sep">/</span>
+      <span>Kraków, Poland</span>
+      <span class="copy">&copy; 2026 Michał Sadowski</span>
     </div>
-    <div class="colophon">
-      <span>Case Study No. 01</span>
-      <span>Set in Playfair Display &amp; Segoe UI</span>
-      <span>Renewable-Energy Registry · Portfolio, Transfers, Retirements</span>
+    <div class="footer-top reveal">
+      <a class="backtop" href="#top">↑ Back to top</a>
     </div>
   </div>
 </footer>
