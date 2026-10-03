@@ -155,7 +155,7 @@ h2{
 a.case-feature:focus-visible{outline:2px solid var(--accent-on-dark);outline-offset:6px;border-radius:4px}
 .case-media{
   position:relative;margin:0;overflow:hidden;
-  aspect-ratio:1200/1415;border-radius:12px;
+  aspect-ratio:620/660;border-radius:12px;
   background:#0B0940;border:1px solid rgba(255,255,255,.16);
   transition:border-color .35s ease;
 }
@@ -209,13 +209,13 @@ a.case-feature:hover .case-copy h3{color:var(--accent-2)}
 /* ============================================================
    About - split (content left, photo right, skills as tags)
    ============================================================ */
-.about-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:56px;align-items:center}
+.about-grid{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:56px;align-items:center}
 .about-head{display:flex;align-items:center;justify-content:space-between;gap:28px;margin-bottom:24px}
 .about-head h2{margin:0}
 .about-mark{display:block;height:36px;width:auto;flex:none}
 .photo{
   position:relative;overflow:hidden;
-  aspect-ratio:4/5;background:var(--surface-warm);
+  aspect-ratio:1/1;background:var(--surface-warm);
   border:1px solid var(--rule);border-radius:12px;
 }
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
@@ -234,9 +234,10 @@ a.case-feature:hover .case-copy h3{color:var(--accent-2)}
 .tag-pill:hover{border-color:var(--accent);color:var(--accent);background:#FBFAF7;transform:translateY(-2px)}
 .tag-pill.dark{background:#000;color:#fff;border-color:#000}
 .tag-pill.dark:hover{background:#000;color:#fff;border-color:#000}
-.about-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted)}
+.about-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted);margin:0}
 .about-meta span{display:inline-flex;align-items:center;gap:7px}
 .about-meta span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none}
+.about-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 32px;margin:28px 0 0}
 
 /* ============================================================
    Trust - logo bar
@@ -313,7 +314,7 @@ a.case-feature:hover .case-copy h3{color:var(--accent-2)}
   .case-media{max-width:430px}
   .case-copy h3{font-size:clamp(24px,5.4vw,30px)}
   .about-grid{grid-template-columns:1fr;gap:30px}
-  .photo{max-width:320px}
+  .photo{max-width:240px}
   .steps{grid-template-columns:1fr;gap:26px}
   .steps li{padding:0 0 0 18px;border-left:1px solid var(--rule-strong)}
   .steps li:first-child{padding-left:18px}
@@ -398,7 +399,7 @@ a.case-feature:hover .case-copy h3{color:var(--accent-2)}
           <a class="case-feature" href="case-study/index.html"
              aria-label="Read the full case study: Making the uncertain feel clear, safe and trustworthy">
             <div class="case-media">
-              <img src="assets/holdings-overview.webp" alt="The redesigned registry: holdings overview with active holdings, filters, saved queries and the action bar" width="1200" height="1415" />
+              <img src="assets/holdings-selected.webp" alt="The redesigned registry: holdings overview with a selection and the actions it unlocks" width="620" height="660" />
             </div>
             <div class="case-copy">
               <span class="idx">01</span>
@@ -416,22 +417,13 @@ a.case-feature:hover .case-copy h3{color:var(--accent-2)}
           </a>
         </li>
 
-        <!-- Placeholder for the second case study. When it exists, make this
-             card a link to it and swap the placeholder media for the real
-             screenshot. -->
         <li class="work-item reveal">
           <div class="case-feature">
-            <div class="case-media case-media--placeholder">Project visual &mdash; placeholder</div>
+            <div class="case-media case-media--placeholder">Work in progress</div>
             <div class="case-copy">
               <span class="idx">02</span>
-              <p class="tags">Excel add-in &middot; Commodity markets</p>
-              <h3>Putting live commodity data inside Excel</h3>
-              <p class="sum">
-                An Excel add-in designed from the ground up so analysts can pull market data
-                without leaving their spreadsheet - solved inside a tightly constrained
-                sidebar.
-              </p>
-              <p class="role">End-to-end designer, research to shipped UI</p>
+              <h3>Work in progress</h3>
+              <p class="sum">A second case study is being written - the work has shipped, the write-up has not.</p>
             </div>
           </div>
         </li>
@@ -489,13 +481,19 @@ a.case-feature:hover .case-copy h3{color:var(--accent-2)}
             <span class="tag-pill dark">Design Systems</span>
             <span class="tag-pill">Web Design</span>
             <span class="tag-pill">User Mapping</span>
+            <span class="tag-pill dark">Figma</span>
+            <span class="tag-pill">Sketch</span>
+            <span class="tag-pill">Webflow</span>
+            <span class="tag-pill">HTML / CSS</span>
             <span class="tag-pill dark">Critical Thinking</span>
           </div>
-          <div class="about-meta reveal">
-            <span>3+ years of experience</span>
-            <span>English C1</span>
-            <span>Kraków, Poland</span>
-            <span>AGH - Social Informatics Bachelor</span>
+          <div class="about-foot reveal">
+            <a class="btn-outline" href="#">Download CV</a>
+            <div class="about-meta">
+              <span>English C1</span>
+              <span>Kraków, Poland</span>
+              <span>AGH - Social Informatics Bachelor</span>
+            </div>
           </div>
         </div>
         <div class="photo reveal"><img src="assets/portrait.jpg" alt="Michał Sadowski" width="720" height="900" loading="lazy" decoding="async" /></div>
@@ -503,8 +501,8 @@ a.case-feature:hover .case-copy h3{color:var(--accent-2)}
     </div>
   </section>
 
-  <!-- ================= FACTS MARQUEE ================= -->
-  <div class="marquee" aria-hidden="true">
+  <!-- ================= FACTS MARQUEE (off for now) ================= -->
+  <div class="marquee" hidden aria-hidden="true">
     <div class="marquee-track">
       <span>3+ years in UX/UI</span><i>&bull;</i>
       <span class="alt">Kraków, Poland</span><i>&bull;</i>
